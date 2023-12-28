@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: uprise_development
+  username: uprise
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: localhost
+  port: 5432
+
+test:
+  <<: *default
+  database: uprise_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: uprise_production
+  username: uprise
+  password: <%= ENV["DB_PASSWORD"] %>
+

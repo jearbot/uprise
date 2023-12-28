@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <% if user_signed_in? %>
+            <li class="nav-item ml-auto">
+              <%= form_for :user, url: destroy_session_path(:user), method: :delete do |f| %>
+                <%= f.submit "Sign out", class: "btn btn-primary" %>
+              <% end %>
+            </li>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
