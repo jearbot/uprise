@@ -22,7 +22,8 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise', '~> 4.9', '>= 4.9.3'
-gem 'pry-rails', '~> 0.3.9'
+gem 'pry', '~> 0.14.2'
+gem 'pry-rails', '~> 0.3.9', require: 'pry-rails/console'
 gem 'sidekiq', '~> 7.2'
 gem 'google-apis-calendar_v3', '~> 0.35.0'
 gem 'twilio-ruby', '~> 6.9'
@@ -32,6 +33,11 @@ gem 'sendgrid-ruby', '~> 6.7'
 gem 'bootstrap', '~> 5.3', '>= 5.3.2'
 gem 'faker', '~> 3.2', '>= 3.2.2'
 gem 'phony_rails', '~> 0.15.0'
+gem 'paranoia', '~> 2.6', '>= 2.6.3'
+gem 'annotate', '~> 3.2'
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
+gem 'kaminari-bootstrap', '~> 3.0', '>= 3.0.1'
+gem 'jquery-rails', '~> 4.6'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -40,8 +46,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
 end
 
 group :development do

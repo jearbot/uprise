@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_19_014039) do
+ActiveRecord::Schema.define(version: 2023_12_28_210555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,15 @@ ActiveRecord::Schema.define(version: 2023_12_19_014039) do
     t.string "phone_number"
     t.string "normalized_phone_number"
     t.string "name"
-    t.string "type"
+    t.integer "member_type"
     t.boolean "unsubscribed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.string "email"
+    t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["member_type"], name: "index_members_on_member_type"
     t.index ["normalized_phone_number"], name: "index_members_on_normalized_phone_number", unique: true
-    t.index ["type"], name: "index_members_on_type"
   end
 
   create_table "message_templates", force: :cascade do |t|
@@ -54,6 +57,9 @@ ActiveRecord::Schema.define(version: 2023_12_19_014039) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.string "name"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

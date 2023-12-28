@@ -1,5 +1,5 @@
 class CreateSmsMessages < ActiveRecord::Migration[6.1]
-  def change
+  def up
     create_table :sms_messages do |t|
       t.boolean :outbound, null: :false
       t.string :message_body, null: :false
@@ -9,5 +9,9 @@ class CreateSmsMessages < ActiveRecord::Migration[6.1]
       t.integer :delivery_status, null: :false
       t.timestamps
     end
+  end
+
+  def down
+    drop_table :sms_messages
   end
 end
