@@ -38,4 +38,12 @@ Rails.application.routes.draw do
     get '/users/new', to: 'users#new'
     post '/users/new', to: 'users#create'
   end
+
+  resources :callbacks do
+    resources :twilio do
+      resources :message_receiver do
+        get '/callbacks/twilio/receive', to: 'callbacks/twilio/message_receiver#create'
+      end
+    end
+  end
 end

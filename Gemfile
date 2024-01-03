@@ -38,6 +38,7 @@ gem 'annotate', '~> 3.2'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'kaminari-bootstrap', '~> 3.0', '>= 3.0.1'
 gem 'jquery-rails', '~> 4.6'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
