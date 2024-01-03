@@ -1,19 +1,19 @@
-const path    = require("path")
-const webpack = require("webpack")
-const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  mode: mode,
+  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   entry: {
-    application: "./app/javascript/application.js"
+    application: "./app/javascript/application.js",
   },
   optimization: {
     moduleIds: 'deterministic',
+    runtimeChunk: 'single',
   },
   output: {
     filename: "[name].js",
     sourceMapFilename: "[file].map",
-    path: path.resolve(__dirname, '..', '..', 'app/assets/builds')
+    path: path.resolve(__dirname, '..', '..', 'app/assets/builds'),
   },
   devServer: {
     static: {
@@ -22,12 +22,23 @@ module.exports = {
     compress: true,
     port: 9000,
   },
-  optimization: {
-    runtimeChunk: 'single',
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
-    })
-  ]
-}
+      maxChunks: 1,
+    }),
+  ],
+};

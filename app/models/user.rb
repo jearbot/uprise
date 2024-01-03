@@ -6,6 +6,7 @@
 #  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  failed_attempts        :integer          default(0), not null
 #  locked_at              :datetime
 #  name                   :string
 #  remember_created_at    :datetime

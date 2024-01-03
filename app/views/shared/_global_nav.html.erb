@@ -1,17 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <% if user_signed_in? %>
-            <li class="nav-item ml-auto">
-              <%= form_for :user, url: destroy_session_path(:user), method: :delete do |f| %>
-                <%= f.submit "Sign out", class: "btn btn-primary" %>
-              <% end %>
-            </li>
-          <% end %>
-        </li>
-      <% end %>
+      <li class="nav-item">
+        <% if user_signed_in? %>
+          <li class="nav-item ml-auto">
+            <%= button_to root_path, method: :get, class: "btn btn-primary" do %>
+              Home
+            <% end %>
+          </li>
+          <li class="nav-item ml-auto">
+            <%= button_to users_path, method: :get, class: "btn btn-primary" do %>
+              Users
+            <% end %>
+          </li>
+          <li class="nav-item ml-auto">
+            <%= button_to message_templates_path, method: :get, class: "btn btn-primary" do %>
+              Message Templates
+            <% end %>
+          </li>
+          <li class="nav-item ml-auto">
+            <%= button_to sms_messages_path, method: :get, class: "btn btn-primary" do %>
+              Messages
+            <% end %>
+          </li>
+          <li class="nav-item ml-auto">
+            <%= button_to members_path, method: :get, class: "btn btn-primary" do %>
+              Members
+            <% end %>
+          </li>
+          <li class="nav-item ml-auto">
+            <%= form_for :user, url: destroy_session_path(:user), method: :delete do |f| %>
+              <%= f.submit "Sign out", class: "btn btn-primary" %>
+            <% end %>
+          </li>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>

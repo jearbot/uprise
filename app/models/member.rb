@@ -25,19 +25,23 @@ class Member < ApplicationRecord
   enum member_type: { volunteer: 0, student: 1 }
 
   validates :phone_number, presence: true, uniqueness: true
-  validates :normalized_phone_number, presence: true, uniqueness: true
+  validates :normalized_phone_number, uniqueness: true, unless: :new_record?
+  validates :email, uniqueness: true, allow_blank: true
+
+  scope :active, -> { where(deleted_at: nil) }
+  scope :inactive, -> { where.not(deleted_at: nil) }
 
   scope :volunteers, -> { where(type: 'volunteer') }
   scope :students, -> { where(type: 'student') }
   scope :unsubscribed, -> { where(unsubscribed: true) }
   scope :subscribed, -> { where(unsubscribed: false) }
 
-  after_update :normalize_phone_number, if: :phone_number_changed?
-  after_update :normalize_email, if: :email_changed?
+  before_save :normalize_phone_number, if: :phone_number_changed?
+  before_save :normalize_email, if: :email_changed?
   after_create :normalize_phone_number, :normalize_email
 
   has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number
-  
+
   private
 
   def normalize_phone_number
