@@ -28,6 +28,7 @@ class User < ApplicationRecord
 
   after_create :normalize_email
   after_update :normalize_email, if: :email_changed?
+  has_many :tokens
 
   private
 

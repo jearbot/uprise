@@ -39,11 +39,16 @@ Rails.application.routes.draw do
     post '/users/new', to: 'users#create'
   end
 
-  resources :callbacks do
-    resources :twilio do
-      resources :message_receiver do
-        get '/callbacks/twilio/receive', to: 'callbacks/twilio/message_receiver#create'
-      end
-    end
-  end
+  get '/callbacks/twilio/receive', to: 'callbacks/twilio/message_receiver#create'
+
+
+  get "/google/calendars", to: "callbacks/google/calendars#index"
+  get "/google/oauth2callback", to: "callbacks/google/calendars#oauth2callback"
+
+
+
+  # get "/callbacks/google", to: "callbacks/google/calendars#callback"
+  # get "/callbacks/google/calendars", to: "callbacks/google/calendars#calendars"
+  # get "callbacks/google/calendars/events/:calendar_id", to: "callbacks/google/calendars#events", as: "events", calendar_id: "/[^\/]+/"
+
 end

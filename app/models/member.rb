@@ -42,6 +42,8 @@ class Member < ApplicationRecord
 
   has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number
 
+  # TODO: # archived students/volunteers that exclude from the scope of volunteer and student, ability to unarchive them, archive view
+
   private
 
   def normalize_phone_number
