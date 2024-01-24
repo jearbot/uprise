@@ -17,10 +17,15 @@ Rails.application.routes.draw do
     delete '/signin', to: 'users/sessions#destroy'
   end
 
-  resources :members, only: [:index, :new, :create] do
+  resources :members, only: [:index, :new, :create, :show] do
     get '/members', to: 'members#index'
     get '/members/new', to: 'members#new'
     post '/members/new', to: 'members#create'
+    get '/members/:id', to: 'members#show'
+  end
+
+  resources :archived_members, only: [:index] do
+    get '/archived_members', to: 'archived_members#index'
   end
 
   resources :message_templates, only: [:index, :new, :create] do

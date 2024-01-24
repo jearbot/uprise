@@ -1,0 +1,2 @@
+module ArchivedMembersHelper
+end

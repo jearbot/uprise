@@ -16,7 +16,7 @@
 class Token < ApplicationRecord
   before_commit :set_expires_at
   belongs_to :user, optional: true
-  
+
   private
 
   def set_expires_at

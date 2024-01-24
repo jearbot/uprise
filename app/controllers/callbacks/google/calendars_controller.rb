@@ -31,7 +31,7 @@ class Callbacks::Google::CalendarsController < ApplicationController
         refresh_token: response['refresh_token'],
         token_type: response['token_type'],
         token: response['access_token'],
-        # user: current_user,
+        user_id: current_user.id,
       )
     else
       flash[:error] = 'Something went wrong, please try again'

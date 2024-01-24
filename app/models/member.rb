@@ -3,6 +3,7 @@
 # Table name: members
 #
 #  id                      :bigint           not null, primary key
+#  archived                :boolean          default(FALSE)
 #  deleted_at              :datetime
 #  email                   :string
 #  member_type             :integer
