@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>From Number</th>
+        <th>To Number</th>
+        <th>Outbound</th>
+        <th>Segments Count</th>
+        <th>Delivery Status</th>
+        <th>Body</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @messages.each do |message| %>
+        <tr>
+          <td><%= message.from_number %></td>
+          <td><%= message.to_number %></td>
+          <td><%= message.outbound %></td>
+          <td><%= message.segment_count %></td>
+          <td><%= message.delivery_status %></td>
+          <td><%= message.message_body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <%= paginate @messages %>
+    </ul>
+  </nav>
+</div>

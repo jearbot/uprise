@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <%= form_tag(members_path, method: :get) do %>
+    <p> Search for a member </p>
+    <%= text_field_tag(:search, params[:search]) %>
+    <%= submit_tag ("Search") %>
+  <% end %>
+
+  <a href="<%= new_member_path %>" class="btn btn-primary">Create Member</a>
+  <a href="<%= archived_members_path %>" class="btn btn-primary">Archived Members</a>
+
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Member Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |member| %>
+        <tr>
+          <td><%= link_to member.name, member_path(member) %></td>
+          <td><%= member.email %></td>
+          <td><%= member.normalized_phone_number %></td>
+          <td><%= member.member_type %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <%= paginate @members %>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uprise</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <% unless current_page?(new_user_session_path) || current_page?(new_user_registration_path) %>
+      <%= render "shared/global_nav" %>
+    <% end %>
+  </head>
+
+  <body>
+    <%= render "layouts/flash" %>
+    <%= yield %>
+  </body>
+</html>

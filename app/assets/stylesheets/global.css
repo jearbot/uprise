@@ -1,0 +1,38 @@
+form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.pagination li a {
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.pagination li.active a {
+  background-color: #343a40;
+  color: #fff;
+}
