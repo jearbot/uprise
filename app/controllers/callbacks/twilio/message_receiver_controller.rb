@@ -7,7 +7,6 @@ class Callbacks::Twilio::MessageReceiverController < Callbacks::BaseController
   def create
     body = create_params[:Body].upcase
 
-    binding.pry
     if START_PHRASES.include?(body)
       Member.find_by(normalized_phone_number: create_params[:From])&.resubscribe
       MessageReceiverJob.perform_async(create_params[:From])
