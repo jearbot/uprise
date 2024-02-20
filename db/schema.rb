@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_11_020731) do
+ActiveRecord::Schema.define(version: 2024_02_12_012528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2024_01_11_020731) do
     t.integer "delivery_status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "message_sid"
+    t.index ["message_sid"], name: "index_sms_messages_on_message_sid", unique: true
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -75,6 +77,8 @@ ActiveRecord::Schema.define(version: 2024_01_11_020731) do
     t.string "name"
     t.datetime "locked_at"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "phone_number"
+    t.string "normalized_phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

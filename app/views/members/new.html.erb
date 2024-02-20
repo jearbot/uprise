@@ -1,23 +1,27 @@
-<%= form_for :member do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", required: true %>
-  </div>
+<div class="container mt-4">
+  <%= form_for :member do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control", required: true %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", required: true %>
-  </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control", required: true %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :phone_number %>
-    <%= f.text_field :phone_number, class: "form-control", required: true %>
-  </div>
+    <div class="form-group">
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number, class: "form-control", required: true %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :member_type %>
-    <%= f.select :member_type, options_for_select(["volunteer", "student"]), class: "form-control", required: true %>
-  </div>
+    <div class="form-group">
+      <%= f.label :member_type %>
+      <%= f.select :member_type, options_for_select(["volunteer", "student"]), class: "form-control", required: true %>
+    </div>
 
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+    <div class="form-group">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

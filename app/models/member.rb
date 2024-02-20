@@ -29,11 +29,11 @@ class Member < ApplicationRecord
   validates :normalized_phone_number, uniqueness: true, unless: :new_record?
   validates :email, uniqueness: true, allow_blank: true
 
-  scope :active, -> { where(deleted_at: nil) }
-  scope :inactive, -> { where.not(deleted_at: nil) }
+  scope :active, -> { where(archived: false) }
+  scope :inactive, -> { where.not(archived: true) }
 
-  scope :volunteers, -> { where(type: 'volunteer') }
-  scope :students, -> { where(type: 'student') }
+  scope :volunteers, -> { where(member_type: 'volunteer') }
+  scope :students, -> { where(member_type: 'student') }
   scope :unsubscribed, -> { where(unsubscribed: true) }
   scope :subscribed, -> { where(unsubscribed: false) }
 
@@ -43,7 +43,17 @@ class Member < ApplicationRecord
 
   has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number
 
-  # TODO: # archived students/volunteers that exclude from the scope of volunteer and student, ability to unarchive them, archive view
+  def subscribed?
+    !unsubscribed?
+  end
+
+  def unsubscribe
+    update!(unsubscribed: true)
+  end
+
+  def resubscribe
+    update!(unsubscribed: false)
+  end
 
   private
 

@@ -34,7 +34,7 @@ class Callbacks::Google::CalendarsController < ApplicationController
         user_id: current_user.id,
       )
     else
-      flash[:error] = 'Something went wrong, please try again'
+      flash[:alert] = 'Something went wrong, please try again'
     end
 
     redirect_to target_url

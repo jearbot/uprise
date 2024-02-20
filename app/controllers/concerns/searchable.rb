@@ -14,7 +14,6 @@ module Searchable
                    or(members_table[:normalized_phone_number].matches("%#{search_term}%")).
                    or(members_table[:name].lower.matches("%#{search_term}%"))
                  )
-                 binding.pry
                  query = query.where(archived: archived) if archived.present?
                  query.page(self.params[:page])
                end
