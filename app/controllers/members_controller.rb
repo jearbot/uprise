@@ -16,7 +16,7 @@ class MembersController < ApplicationController
       end
       flash[:success] = "Member created successfully."
     rescue => e
-      flash[:error] = "Error creating member: #{e.message}"
+      flash[:alert] = "Error creating member: #{e.message}"
     end
 
     redirect_to members_new_path

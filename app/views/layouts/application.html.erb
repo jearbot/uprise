@@ -9,13 +9,17 @@
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
-    <% unless current_page?(new_user_session_path) || current_page?(new_user_registration_path) %>
+    <% unless current_page?(new_user_session_path) %>
       <%= render "shared/global_nav" %>
     <% end %>
   </head>
 
   <body>
-    <%= render "layouts/flash" %>
+    <% unless current_page?(new_user_session_path) %>
+     <%= render 'shared/alert_modal' %>
+      <%= render 'shared/success_modal' %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
