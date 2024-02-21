@@ -7,15 +7,13 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Profile</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= user.name %></td>
+          <td><%= user.name %> <%= link_to '(Edit)', user_path(member), 'data-turbolinks': false %></td>
           <td><%= user.email %></td>
-          <td><%= link_to 'Edit', user_path(user) %></td>
         </tr>
       <% end %>
     </tbody>

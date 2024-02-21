@@ -1,10 +1,5 @@
 <div class="container mt-4">
-  <div class="form-group">
-    <h1>
-      Member Profile
-    </h1>
-  </div>
-
+  <h1>Member Profile</h1>
   <%= form_for @member do |f| %>
     <div class="form-group">
       <%= f.label :name %>
@@ -32,35 +27,11 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :unsubscribed %>
-      <%= f.check_box :unsubscribed, checked: @member.unsubscribed? %>
-    </div>
-
-    <div class="form-group">
-      <h1>
-        Member data
-      </h1>
-    </div>
-
-    <div class="form-group">
-      <button type="button" id="add-data" class="btn btn-primary">Add Data</button>
-    </div>
-
-    <div id="data-fields">
-      <% @member.data.each do |data| %>
-        <div class="form-group">
-          <%= f.label "#{data.first.to_s&.capitalize}" %>
-          <%= f.text_field "data[#{data.first}]", class: "form-control", value: data.second.to_s&.downcase %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="form-group">
       <%= f.submit "Save Changes" %>
     </div>
   <% end %>
 
   <div class="form-group">
-    <%= button_to "Delete Member", member_path(@member), method: :delete, class: "btn btn-danger", onclick: "return confirm('Are you sure you want to delete this member?');" %>
+    <%= button_to "Delete Member", archived_member_path, method: :delete, class: "btn btn-danger", onclick: "return confirm('Are you sure you want to delete this member?');" %>
   </div>
 </div>

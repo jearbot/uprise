@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_12_012528) do
+ActiveRecord::Schema.define(version: 2024_02_20_213606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2024_02_12_012528) do
     t.datetime "deleted_at"
     t.string "email"
     t.boolean "archived", default: false
+    t.jsonb "data", default: {}
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["member_type"], name: "index_members_on_member_type"
     t.index ["normalized_phone_number"], name: "index_members_on_normalized_phone_number", unique: true

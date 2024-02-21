@@ -5,8 +5,15 @@
     <%= submit_tag ("Search") %>
   <% end %>
 
-  <a href="<%= new_member_path %>" class="btn btn-primary">Create Member</a>
-  <a href="<%= archived_members_path %>" class="btn btn-primary">Archived Members</a>
+  <div class="mt-4">
+    <%= link_to "Create Member", new_member_path, class: "btn btn-primary" %>
+    <%= link_to "Archived Members", archived_members_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "Student Members", members_path(scope: 'student'), class: "btn btn-primary" %>
+    <%= link_to "Volunteer Members", members_path(scope: 'volunteer'), class: "btn btn-primary" %>
+  </div>
 
   <table class="table table-bordered table-striped">
     <thead class="thead-dark">
@@ -20,7 +27,7 @@
     <tbody>
       <% @members.each do |member| %>
         <tr>
-          <td><%= link_to member.name, member_path(member) %></td>
+          <td><%= member.name %> <%= link_to '(Edit)', member_path(member), 'data-turbolinks': false %></td>
           <td><%= member.email %></td>
           <td><%= member.normalized_phone_number %></td>
           <td><%= member.member_type %></td>

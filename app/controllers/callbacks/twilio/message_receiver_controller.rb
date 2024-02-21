@@ -6,6 +6,11 @@ class Callbacks::Twilio::MessageReceiverController < Callbacks::BaseController
 
   def create
     body = create_params[:Body].upcase
+    member = Member.unscoped.find_by(normalized_phone_number: create_params[:From])
+
+    unless member
+      return
+    end
 
     if START_PHRASES.include?(body)
       Member.find_by(normalized_phone_number: create_params[:From])&.resubscribe
