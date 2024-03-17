@@ -23,8 +23,8 @@ Rails.application.routes.draw do
     delete '/signin', to: 'users/sessions#destroy'
   end
 
-  resources :members, only: [:index, :new, :create, :show]
-  resources :archived_members, only: [:index]
+  resources :members, only: [:index, :new, :create, :show, :update, :destroy]
+  resources :archived_members, only: [:index, :show, :update, :destroy]
   resources :message_templates, only: [:index, :new, :create]
   resources :sms_messages, only: [:index, :new, :create]
   resources :users, only: [:index, :new, :create, :show, :update, :destroy]

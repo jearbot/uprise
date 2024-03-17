@@ -4,6 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  archived                :boolean          default(FALSE)
+#  data                    :jsonb
 #  deleted_at              :datetime
 #  email                   :string
 #  member_type             :integer
@@ -30,7 +31,7 @@ class Member < ApplicationRecord
   validates :email, uniqueness: true, allow_blank: true
 
   scope :active, -> { where(archived: false) }
-  scope :inactive, -> { where.not(archived: true) }
+  scope :inactive, -> { where(archived: true) }
 
   scope :volunteers, -> { where(member_type: 'volunteer') }
   scope :students, -> { where(member_type: 'student') }
@@ -41,7 +42,7 @@ class Member < ApplicationRecord
   before_save :normalize_email, if: :email_changed?
   after_create :normalize_phone_number, :normalize_email
 
-  has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number
+  has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number, dependent: :destroy
 
   def subscribed?
     !unsubscribed?

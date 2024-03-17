@@ -1,11 +1,11 @@
 class ArchivedMembersController < ApplicationController
-  include Searchable
+  include MembersSearchable
 
   def index
     if params[:search].present?
       search_members(archived: true)
     else
-      @members = Member.all.where(archived: true).order(name: :asc).page(params[:page])
+      @members = Member.inactive.order(name: :asc).page(params[:page])
     end
   end
 end

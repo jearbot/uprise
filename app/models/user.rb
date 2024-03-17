@@ -23,6 +23,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$/
   acts_as_paranoid
 
   devise :database_authenticatable, :registerable,
@@ -34,6 +35,8 @@ class User < ApplicationRecord
   after_update :normalize_email, if: :email_changed?
   before_save :normalize_phone_number, if: :phone_number_changed?
 
+  validate :check_password_complexity, on: [:create, :update]
+
   has_many :tokens
 
   private
@@ -44,5 +47,12 @@ class User < ApplicationRecord
 
   def normalize_phone_number
     self.normalized_phone_number = PhonyRails.normalize_number(phone_number, default_country_code: 'US')
+  end
+
+  def check_password_complexity
+    return if password.blank? || password =~ PASSWORD_REGEX
+
+    errors.add(:password, 'must be at least 8 characters long, contain one upper case letter, one number, and one special character.')
+    raise ActiveRecord::RecordInvalid.new(self)
   end
 end

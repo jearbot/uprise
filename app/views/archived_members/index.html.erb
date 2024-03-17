@@ -1,5 +1,6 @@
 <div class="container mt-4">
-  <%= form_tag(members_path, method: :get) do %>
+
+  <%= form_tag(archived_members_path, method: :get) do %>
     <p> Search for a member </p>
     <%= text_field_tag(:search, params[:search]) %>
     <%= submit_tag ("Search") %>
@@ -19,7 +20,7 @@
     <tbody>
       <% @members.each do |member| %>
         <tr>
-          <td><%= link_to member.name, archived_members_path(member) %></td>
+          <td><%= member.name %> <%= link_to '(Edit)', member_path(member), 'data-turbolinks': false %></td>
           <td><%= member.email %></td>
           <td><%= member.normalized_phone_number %></td>
           <td><%= member.member_type %></td>
