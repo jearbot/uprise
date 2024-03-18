@@ -50,7 +50,6 @@ class MembersController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         member = Member.find(params[:id])
-        binding.pry
         member.update!(parsed_params(member, update_params))
       end
       flash[:success] = "Member updated successfully."

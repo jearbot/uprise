@@ -43,6 +43,7 @@ class Member < ApplicationRecord
   after_create :normalize_phone_number, :normalize_email
 
   has_many :sms_messages, foreign_key: :to_number, primary_key: :normalized_phone_number, dependent: :destroy
+  has_many :events
 
   def subscribed?
     !unsubscribed?
