@@ -12,7 +12,7 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= user.name %> <%= link_to '(Edit)', user_path(member), 'data-turbolinks': false %></td>
+          <td><%= user.name %> <%= link_to '(Edit)', user_path(user), 'data-turbolinks': false %></td>
           <td><%= user.email %></td>
         </tr>
       <% end %>

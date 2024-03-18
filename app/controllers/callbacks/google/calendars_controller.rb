@@ -14,17 +14,21 @@ class Callbacks::Google::CalendarsController < ApplicationController
     params = URI.decode_www_form(query_params).to_h
     authorization_code = params['code']
     target_url = Google::Auth::WebUserAuthorizer.handle_auth_callback_deferred(request)
-    client = Signet::OAuth2::Client.new({
-      client_id: ENV.fetch('GOOGLE_CLIENT_ID'),
-      client_secret: ENV.fetch('GOOGLE_CLIENT_SECRET'),
-      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-      redirect_uri: 'http://localhost:3000/google/oauth2callback',
-      code: authorization_code
-    })
+    client = Signet::OAuth2::Client.new(
+      {
+        client_id: ENV.fetch('GOOGLE_CLIENT_ID'),
+        client_secret: ENV.fetch('GOOGLE_CLIENT_SECRET'),
+        token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+        redirect_uri: 'http://localhost:3000/google/oauth2callback',
+        code: authorization_code
+      }
+    )
 
     response = client.fetch_access_token!
 
     if response['access_token']
+      expires_at = Time.now + response['expires_in'].to_i.seconds
+
       Token.create!(
         expires_in: response['expires_in'],
         granted_scopes: response['granted_scopes'],
@@ -32,6 +36,7 @@ class Callbacks::Google::CalendarsController < ApplicationController
         token_type: response['token_type'],
         token: response['access_token'],
         user_id: current_user.id,
+        expires_at: expires_at,
       )
     else
       flash[:alert] = 'Something went wrong, please try again'
@@ -43,11 +48,15 @@ class Callbacks::Google::CalendarsController < ApplicationController
   private
 
   def set_auth_uri
-    client_id = Google::Auth::ClientId.from_file('client_secrets.json')
+    client_id = Google::Auth::ClientId.new(
+      ENV['GOOGLE_CLIENT_ID'],
+      ENV['GOOGLE_CLIENT_SECRET']
+    )
+
     scope = [
-              'https://www.googleapis.com/auth/calendar.events.owned',
-              'https://www.googleapis.com/auth/calendar.events.owned.readonly',
-            ]
+      'https://www.googleapis.com/auth/calendar.events.owned',
+      'https://www.googleapis.com/auth/calendar.events.owned.readonly',
+    ]
     token_store = Google::Auth::Stores::RedisTokenStore.new(redis: Redis.new)
     authorizer = Google::Auth::WebUserAuthorizer.new(client_id, scope, token_store, '/google/oauth2callback')
     user_id = 'default'
